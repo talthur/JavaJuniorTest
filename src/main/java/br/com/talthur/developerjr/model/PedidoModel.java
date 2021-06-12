@@ -15,10 +15,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "pedido")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PedidoModel {
 
 	@Id

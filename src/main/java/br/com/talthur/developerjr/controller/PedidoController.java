@@ -21,7 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.talthur.developerjr.dto.PedidoProdutoDTO;
 import br.com.talthur.developerjr.exception.ResourceNotFoundException;
-import br.com.talthur.developerjr.model.ClienteModel;
 import br.com.talthur.developerjr.model.PedidoModel;
 import br.com.talthur.developerjr.model.PedidoProdutoModel;
 import br.com.talthur.developerjr.repository.ClienteRepository;
@@ -65,16 +64,14 @@ public class PedidoController {
 		pedido = this.pedidoService.create(pedido);
 		
 		
+		
 		List<PedidoProdutoModel> pedidoProdutoModel = new ArrayList<>();
 		for (PedidoProdutoDTO dto : formDtos) {
-			
-			System.out.println("Quem é o cliente:" + dto.getCliente().getId());
-			ClienteModel teste = clienteService.getCliente(dto.getCliente().getId());
-			System.out.println("sou eu!:" + teste.toString());
 			
 			pedidoProdutoModel.add(pedidoProdutoService
 					.create(new PedidoProdutoModel(produtoService.getProduto(dto.getProduto().getId()), pedido,
 							dto.getQuantidade(), clienteService.getCliente(dto.getCliente().getId()))));
+			pedido.setCliente(clienteService.getCliente(dto.getCliente().getId()));
 		}
 
 		pedido.setListaPedidoProdutos(pedidoProdutoModel);
@@ -100,16 +97,6 @@ public class PedidoController {
 		}
 	}
 
-	private void validaExistenciaDoCliente(List<PedidoProdutoDTO> produtoPedidos) {
-
-		List<PedidoProdutoDTO> list = produtoPedidos.stream()
-				.filter(op -> Objects.isNull(clienteService.getCliente(op.getCliente().getId())))
-				.collect(Collectors.toList());
-
-		if (!CollectionUtils.isEmpty(list)) {
-			new ResourceNotFoundException("Product not found");
-		}
-	}
 
 	public static class PedidoForm {
 

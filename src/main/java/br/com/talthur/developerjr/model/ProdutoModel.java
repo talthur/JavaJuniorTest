@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity(name = "produto")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProdutoModel {
 	
 	
