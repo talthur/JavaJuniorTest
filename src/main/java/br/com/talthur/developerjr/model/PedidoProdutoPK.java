@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,7 +23,7 @@ public class PedidoProdutoPK implements Serializable{
 	@JoinColumn(name = "produto_id")
 	private ProdutoModel produto;
 	
-	@OneToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id")
 	private ClienteModel cliente;
 

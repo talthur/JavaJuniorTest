@@ -26,13 +26,14 @@ public class PedidoProdutoModel {
 		super();
 	}
 
-	public PedidoProdutoModel(ProdutoModel produto, PedidoModel pedido, int quantidade, ClienteModel Cliente) {
+	public PedidoProdutoModel(ProdutoModel produto, PedidoModel pedido, int quantidade, ClienteModel cliente) {
 		pk = new PedidoProdutoPK();
 		pk.setPedido(pedido);
 		pk.setProduto(produto);
-		pk.setCliente(Cliente);
+		pk.setCliente(cliente);
 		this.quantidade = quantidade;
 	}
+	
 
 	@Transient
 	public ProdutoModel getProduto() {

@@ -1,5 +1,6 @@
 package br.com.talthur.developerjr.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,24 +21,31 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.talthur.developerjr.dto.PedidoProdutoDTO;
 import br.com.talthur.developerjr.exception.ResourceNotFoundException;
+import br.com.talthur.developerjr.model.ClienteModel;
 import br.com.talthur.developerjr.model.PedidoModel;
 import br.com.talthur.developerjr.model.PedidoProdutoModel;
-import br.com.talthur.developerjr.service.PedidoProdutoServiceImpl;
-import br.com.talthur.developerjr.service.PedidoServiceImpl;
-import br.com.talthur.developerjr.service.ProdutoServiceImpl;
+import br.com.talthur.developerjr.repository.ClienteRepository;
+import br.com.talthur.developerjr.service.ClienteService;
+import br.com.talthur.developerjr.service.PedidoProdutoService;
+import br.com.talthur.developerjr.service.PedidoService;
+import br.com.talthur.developerjr.service.ProdutoService;
 
 @RestController
 public class PedidoController {
+	
+	ClienteRepository clienteRepository;
 
-	ProdutoServiceImpl produtoService;
-	PedidoServiceImpl pedidoService;
-	PedidoProdutoServiceImpl pedidoProdutoService;
+	ProdutoService produtoService;
+	PedidoService pedidoService;
+	PedidoProdutoService pedidoProdutoService;
+	ClienteService clienteService;
 
-	public PedidoController(ProdutoServiceImpl produtoService, PedidoServiceImpl pedidoService,
-			PedidoProdutoServiceImpl pedidoProdutoService) {
+	public PedidoController(ProdutoService produtoService, PedidoService pedidoService,
+			PedidoProdutoService pedidoProdutoService, ClienteService clienteService) {
 		this.produtoService = produtoService;
 		this.pedidoService = pedidoService;
 		this.pedidoProdutoService = pedidoProdutoService;
+		this.clienteService = clienteService;
 	}
 
 	@GetMapping(path = "api/pedidos")
@@ -49,25 +57,28 @@ public class PedidoController {
 	@PostMapping(path = "api/pedido/salva")
 	public ResponseEntity<PedidoModel> create(@RequestBody PedidoForm form) {
 		
-		if(form.equals(null)) {
-			new ResourceNotFoundException("JSON vazio");
-		}
-		
-		System.out.println("O que é o form?: " + form.getProdutoPedidos().toString());
 		
 		List<PedidoProdutoDTO> formDtos = form.getProdutoPedidos();
 		validaExistenciaDoProduto(formDtos);
+
 		PedidoModel pedido = new PedidoModel();
 		pedido = this.pedidoService.create(pedido);
-
+		
+		
 		List<PedidoProdutoModel> pedidoProdutoModel = new ArrayList<>();
 		for (PedidoProdutoDTO dto : formDtos) {
-			pedidoProdutoModel.add(pedidoProdutoService.create(new PedidoProdutoModel(produtoService.getProduto(dto.getProduto().getId()),
-					pedido, dto.getQuantidade(), null)));
+			
+			System.out.println("Quem é o cliente:" + dto.getCliente().getId());
+			ClienteModel teste = clienteService.getCliente(dto.getCliente().getId());
+			System.out.println("sou eu!:" + teste.toString());
+			
+			pedidoProdutoModel.add(pedidoProdutoService
+					.create(new PedidoProdutoModel(produtoService.getProduto(dto.getProduto().getId()), pedido,
+							dto.getQuantidade(), clienteService.getCliente(dto.getCliente().getId()))));
 		}
 
-		pedido.setListaProdutos(pedidoProdutoModel);
-
+		pedido.setListaPedidoProdutos(pedidoProdutoModel);
+		pedido.setDataDaCompra(LocalDate.now());
 		this.pedidoService.update(pedido);
 
 		String uri = ServletUriComponentsBuilder.fromCurrentServletMapping().path("/pedidos/{id}")
@@ -79,11 +90,22 @@ public class PedidoController {
 	}
 
 	private void validaExistenciaDoProduto(List<PedidoProdutoDTO> produtoPedidos) {
-		
+
 		List<PedidoProdutoDTO> list = produtoPedidos.stream()
 				.filter(op -> Objects.isNull(produtoService.getProduto(op.getProduto().getId())))
 				.collect(Collectors.toList());
-		
+
+		if (!CollectionUtils.isEmpty(list)) {
+			new ResourceNotFoundException("Product not found");
+		}
+	}
+
+	private void validaExistenciaDoCliente(List<PedidoProdutoDTO> produtoPedidos) {
+
+		List<PedidoProdutoDTO> list = produtoPedidos.stream()
+				.filter(op -> Objects.isNull(clienteService.getCliente(op.getCliente().getId())))
+				.collect(Collectors.toList());
+
 		if (!CollectionUtils.isEmpty(list)) {
 			new ResourceNotFoundException("Product not found");
 		}
@@ -92,7 +114,7 @@ public class PedidoController {
 	public static class PedidoForm {
 
 		private List<PedidoProdutoDTO> produtoPedidos;
-	
+
 		public List<PedidoProdutoDTO> getProdutoPedidos() {
 			return produtoPedidos;
 		}
@@ -105,8 +127,6 @@ public class PedidoController {
 		public String toString() {
 			return "PedidoForm [produtoPedidos=" + produtoPedidos + "]";
 		}
-		
-		
 
 	}
 }

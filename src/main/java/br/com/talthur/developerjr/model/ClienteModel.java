@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
-@Entity(name = "cliente")
+@Entity
+@Table(name = "cliente")
 public class ClienteModel {
 	
 	@Id
@@ -98,6 +100,14 @@ public class ClienteModel {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ClienteModel [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataDeNascimento=" + dataDeNascimento
+				+ "]";
+	}
+	
+	
 	
 	
 	

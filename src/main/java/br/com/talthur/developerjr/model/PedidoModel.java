@@ -15,80 +15,35 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "pedido")
 public class PedidoModel {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotNull
-	@OneToOne(mappedBy = "pk.pedido")
+	@OneToOne
 	private ClienteModel cliente;
-	
-	@NotNull
-	private BigDecimal totalCompra;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@NotNull
 	private LocalDate dataDaCompra;
-	
+
 	@NotNull
-	@JsonManagedReference
 	@OneToMany(mappedBy = "pk.pedido")
 	private List<PedidoProdutoModel> listaPedidoProdutos = new ArrayList<PedidoProdutoModel>();
 
 	@Transient
 	public BigDecimal getTotalCompra(List<ProdutoModel> listaProdutos) {
-	 for(ProdutoModel produto : listaProdutos) {
-		totalCompra = totalCompra.add(produto.getPreco());
-	 }
-	 return totalCompra;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public ClienteModel getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteModel cliente) {
-		this.cliente = cliente;
-	}
-
-	public BigDecimal getTotalCompra() {
-		return totalCompra;
-	}
-
-	public void setTotalCompra(BigDecimal totalCompra) {
-		this.totalCompra = totalCompra;
-	}
-
-	public LocalDate getDataDaCompra() {
-		return dataDaCompra;
-	}
-
-	public void setDataDaCompra(LocalDate dataDaCompra) {
-		this.dataDaCompra = dataDaCompra;
-	}
-
-	public List<PedidoProdutoModel> getListaProdutos() {
-		return listaPedidoProdutos;
-	}
-
-	public void setListaProdutos(List<PedidoProdutoModel> listaProdutos) {
-		this.listaPedidoProdutos = listaProdutos;
+		BigDecimal soma = new BigDecimal(0);
+		for (ProdutoModel produto : listaProdutos) {
+			soma = soma.add(produto.getPreco());
+		}
+		return soma;
 	}
 
 	@Override
@@ -99,7 +54,6 @@ public class PedidoModel {
 		result = prime * result + ((dataDaCompra == null) ? 0 : dataDaCompra.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((listaPedidoProdutos == null) ? 0 : listaPedidoProdutos.hashCode());
-		result = prime * result + ((totalCompra == null) ? 0 : totalCompra.hashCode());
 		return result;
 	}
 
@@ -129,15 +83,43 @@ public class PedidoModel {
 				return false;
 		} else if (!listaPedidoProdutos.equals(other.listaPedidoProdutos))
 			return false;
-		if (totalCompra == null) {
-			if (other.totalCompra != null)
-				return false;
-		} else if (!totalCompra.equals(other.totalCompra))
-			return false;
 		return true;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public ClienteModel getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteModel cliente) {
+		this.cliente = cliente;
+	}
+
+	public LocalDate getDataDaCompra() {
+		return dataDaCompra;
+	}
+
+	public void setDataDaCompra(LocalDate dataDaCompra) {
+		this.dataDaCompra = dataDaCompra;
+	}
+
+	public List<PedidoProdutoModel> getListaPedidoProdutos() {
+		return listaPedidoProdutos;
+	}
+
+	public void setListaPedidoProdutos(List<PedidoProdutoModel> listaPedidoProdutos) {
+		this.listaPedidoProdutos = listaPedidoProdutos;
+	}
+
 	
+
 	
 
 }

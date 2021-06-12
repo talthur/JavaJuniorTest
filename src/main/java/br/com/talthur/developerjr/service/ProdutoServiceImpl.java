@@ -10,27 +10,24 @@ import br.com.talthur.developerjr.repository.ProdutoRepository;
 
 @Service
 @Transactional
-public class ProdutoServiceImpl implements ProdutoService{
+public class ProdutoServiceImpl implements ProdutoService {
 	private ProdutoRepository produtoRepository;
 
-    public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
-        this.produtoRepository = produtoRepository;
-    }
+	public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
+		this.produtoRepository = produtoRepository;
+	}
 
-    public Iterable<ProdutoModel> getAllProdutos() {
-        return produtoRepository.findAll();
-    }
+	public Iterable<ProdutoModel> getAllProdutos() {
+		return produtoRepository.findAll();
+	}
 
-  
-    public ProdutoModel getProduto(long id) {
-    	
-        return produtoRepository
-          .findById(id)
-          .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
-    }
+	public ProdutoModel getProduto(long id) {
 
-  
-    public ProdutoModel save(ProdutoModel produtoModel) {
-        return produtoRepository.save(produtoModel);
-    }
+		return produtoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
+	}
+
+	public ProdutoModel save(ProdutoModel produtoModel) {
+		return produtoRepository.save(produtoModel);
+	}
 }
