@@ -10,22 +10,22 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
-@Entity(name = "Cliente")
+@Entity(name = "cliente")
 public class ClienteModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
+	private long id;
 	
 	@NotNull
-	String nome;
+	private String nome;
 	
 	@NotNull
-	String cpf;
+	private String cpf;
 	
 	@NotNull
 	@JsonFormat(pattern="yyyy-MM-dd")
-	LocalDate dataDeNascimento;
+	private LocalDate dataDeNascimento;
 
 	public String getNome() {
 		return nome;
@@ -58,6 +58,48 @@ public class ClienteModel {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((dataDeNascimento == null) ? 0 : dataDeNascimento.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClienteModel other = (ClienteModel) obj;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		if (dataDeNascimento == null) {
+			if (other.dataDeNascimento != null)
+				return false;
+		} else if (!dataDeNascimento.equals(other.dataDeNascimento))
+			return false;
+		if (id != other.id)
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 

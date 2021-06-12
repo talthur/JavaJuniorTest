@@ -8,4 +8,5 @@ import br.com.talthur.developerjr.model.ProdutoModel;
 
 public interface ProdutoRepository extends CrudRepository<ProdutoModel, Long>{
 	List<ProdutoModel>findAll();
+	
 }

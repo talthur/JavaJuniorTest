@@ -8,4 +8,5 @@ import br.com.talthur.developerjr.model.ClienteModel;
 
 public interface ClienteRepository extends CrudRepository<ClienteModel, Long>{
 	List<ClienteModel> findAll();
+	
 }
