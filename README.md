@@ -71,7 +71,7 @@ PRODUTO
 >Salva um produto no DB, criando um ID sequencial que poderá ser usado para retornar ou atualizar a informação.
 
 2 - Ler:
-<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-produtos.png" alt="le-produto>
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-produtos.png" alt="le-produto">
 >Retorna todos produtos cadastrados no DB. No endpoint /api/produto/{id}, retorna apenas produto específico.
 
 3 - Atualizar:
