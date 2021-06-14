@@ -82,7 +82,7 @@ PRODUTO
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/deleta-produto-id.png" alt="deleta-cliente">
 >Deleta um produto do DB baseado no ID passado no header da requisição
 
-----------------------------------------------------------------------------------------------                                                                      PEDIDO                                                                                                                  
+----------------------------------------------------------------------------------------------                                                                      PEDIDO
 ----------------------------------------------------------------------------------------------                                                                     1 - Adicionar:
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/salvar-pedido.png" alt="salva-pedido">
 >Salva um pedido no DB. A requisão JSON deve seguir o padrão da imagem.
