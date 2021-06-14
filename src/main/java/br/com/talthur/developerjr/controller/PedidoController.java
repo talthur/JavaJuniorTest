@@ -46,13 +46,15 @@ public class PedidoController {
 		this.pedidoProdutoService = pedidoProdutoService;
 		this.clienteService = clienteService;
 	}
-
+	
+	//Retorna todos pedidos no DB
 	@GetMapping(path = "api/pedidos")
 	@ResponseStatus(HttpStatus.OK)
 	public @NotNull Iterable<PedidoModel> list() {
 		return this.pedidoService.getAllPedidos();
 	}
-
+	
+	//Salva pedido baseado no ID do cliente e do produto passado
 	@PostMapping(path = "api/pedido/salva")
 	public ResponseEntity<PedidoModel> create(@RequestBody PedidoForm form) {
 		
@@ -85,7 +87,7 @@ public class PedidoController {
 
 		return new ResponseEntity<>(pedido, headers, HttpStatus.CREATED);
 	}
-
+	
 	private void validaExistenciaDoProduto(List<PedidoProdutoDTO> produtoPedidos) {
 
 		List<PedidoProdutoDTO> list = produtoPedidos.stream()
@@ -97,7 +99,8 @@ public class PedidoController {
 		}
 	}
 
-
+	
+	//método form para recebimento dos dados pels requisição
 	public static class PedidoForm {
 
 		private List<PedidoProdutoDTO> produtoPedidos;
