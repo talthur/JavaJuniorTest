@@ -64,8 +64,8 @@ CLIENTE
 >Deleta um cliente do DB baseado no ID passado no header da requisição
 
 ----------------------------------------------------------------------------------------------
-
 PRODUTO
+----------------------------------------------------------------------------------------------
 1 - Adicionar:
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/salvar-produto.png" alt="salva-produto">
 >Salva um produto no DB, criando um ID sequencial que poderá ser usado para retornar ou atualizar a informação.
@@ -82,11 +82,14 @@ PRODUTO
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/deleta-produto-id.png" alt="deleta-cliente">
 >Deleta um produto do DB baseado no ID passado no header da requisição
 
-----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------                                                                      PEDIDO                                                                                                                  
+----------------------------------------------------------------------------------------------                                                                     1 - Adicionar:
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/salvar-pedido.png" alt="salva-pedido">
+>Salva um pedido no DB. A requisão JSON deve seguir o padrão da imagem.
 
-                                                                                                                  
-PEDIDO                                                                                                                  
-                                                                                                                  
+2 - Ler:
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-pedidos.png" alt="le-pedido>
+>Retorna todos pedidos cadastrados no DB.                                        
 
 ## 📫 Contribuindo para <JavaJuniorTest>
 Para contribuir com <JavaJuniorTest>, siga estas etapas:
