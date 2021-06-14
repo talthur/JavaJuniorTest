@@ -89,7 +89,7 @@ PEDIDO
 >Salva um pedido no DB. A requisão JSON deve seguir o padrão da imagem.
 
 2 - Ler:
-<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-pedidos.png" alt="le-pedido>
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-pedidos.png" alt="le-pedido">
 >Retorna todos pedidos cadastrados no DB.                                        
 
 ## 📫 Contribuindo para <JavaJuniorTest>
