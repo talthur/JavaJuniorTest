@@ -92,7 +92,7 @@ PEDIDO
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-pedidos.png" alt="le-pedido">
 >Retorna todos pedidos cadastrados no DB.                                        
 
-## 📫 Contribuindo para <JavaJuniorTest>
+## 📫 Contribuindo para JavaJuniorTest
 Para contribuir com <JavaJuniorTest>, siga estas etapas:
 
 1. Bifurque este repositório.
