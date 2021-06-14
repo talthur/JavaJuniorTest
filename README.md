@@ -15,7 +15,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Services
 - [x] Controllers
 - [x] DTO
-- [x] Endpoints CRUD para Produto e CLiente
+- [x] Endpoints CRUD para Produto e Cliente
 - [x] Endpoint de adicionar Pedido
 - [x] Endpoint de ler todos Pedidos
 - [ ] Endpoint para deletar Pedidos
