@@ -47,16 +47,20 @@ CLIENTE
 ----------------------------------------------------------------------------------------------
 
 1 - Adicionar:
-
 <img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/salva-cliente.png" alt="salva-cliente">
-Salva um cliente no DB, criando um ID sequencial que poderá ser usado para retornar ou atualizar a informação.
+>Salva um cliente no DB, criando um ID sequencial que poderá ser usado para retornar ou atualizar a informação.
 
 2 - Ler:
-
-<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-cliente-by-id.png" alt="salva-cliente">
-Lê um cliente no DB baseado no ID que é passado na requisição, no exemplo o ID 1 está sendo usado.
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/get-cliente-by-id.png" alt="le-cliente">
+>Lê um cliente no DB baseado no ID que é passado na requisição, no exemplo o ID 1 está sendo usado. Se utilizar o método GET em /clientes, retorna todos cliente do DB
 
 3 - Atualizar:
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/atualiza-clientes.png" alt="atualiza-cliente">
+>Atualiza um cliente baseado no ID que está sendo passado no header da requisição, no body os novos dados são incluídos.
+
+4 - Deletar:
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/deleta-cliente-by-id.png" alt="atualiza-cliente">
+>Deleta um cliente do DB baseado no ID passado no header da requisição
 
 ----------------------------------------------------------------------------------------------
 
