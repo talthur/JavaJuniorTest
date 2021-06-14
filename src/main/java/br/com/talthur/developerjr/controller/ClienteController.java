@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.talthur.developerjr.model.ClienteModel;
 import br.com.talthur.developerjr.repository.ClienteRepository;
+import br.com.talthur.developerjr.validacao.ValidaCPF;
 
 @RestController()
 public class ClienteController {
@@ -38,6 +39,7 @@ public class ClienteController {
 	// Salva um novo cliente no DB
 	@PostMapping(path = "api/cliente/salvar")
 	public ClienteModel addCliente(@RequestBody @Validated ClienteModel cliente) {
+		ValidaCPF.isCPF(cliente.getCpf());
 		return clienteRepository.save(cliente);
 	}
 
