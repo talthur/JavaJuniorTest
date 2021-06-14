@@ -2,7 +2,7 @@
 WebApplication for Java JR Teste
 
 
-<img src="exemplo-image.png" alt="exemplo imagem">
+<img src="https://github.com/talthur/JavaJuniorTest/blob/master/images/diagram.jpeg" alt="exemplo imagem">
 
 > API REST responsável por criar, ler, atualizar e deletar objetos do tipo: cliente e produto, criando a relação entre estes na forma de um pedido.
 
