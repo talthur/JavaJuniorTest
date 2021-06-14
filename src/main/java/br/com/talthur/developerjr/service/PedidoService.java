@@ -11,9 +11,12 @@ public interface PedidoService {
 	
 	@NotNull 
 	Iterable<PedidoModel> getAllPedidos();
+	
 
     PedidoModel create(@NotNull(message = "The order cannot be null.") @Valid PedidoModel pedido);
 
     void update(@NotNull(message = "The order cannot be null.") @Valid PedidoModel pedido);
+    
+    void delete(@NotNull(message = "The order cannot be null.") @Valid PedidoModel pedido);
 
 }

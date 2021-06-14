@@ -24,6 +24,7 @@ import br.com.talthur.developerjr.exception.ResourceNotFoundException;
 import br.com.talthur.developerjr.model.PedidoModel;
 import br.com.talthur.developerjr.model.PedidoProdutoModel;
 import br.com.talthur.developerjr.repository.ClienteRepository;
+import br.com.talthur.developerjr.repository.PedidoRepository;
 import br.com.talthur.developerjr.service.ClienteService;
 import br.com.talthur.developerjr.service.PedidoProdutoService;
 import br.com.talthur.developerjr.service.PedidoService;
@@ -31,8 +32,9 @@ import br.com.talthur.developerjr.service.ProdutoService;
 
 @RestController
 public class PedidoController {
-	
+
 	ClienteRepository clienteRepository;
+	PedidoRepository pedidoRepository;
 
 	ProdutoService produtoService;
 	PedidoService pedidoService;
@@ -46,30 +48,27 @@ public class PedidoController {
 		this.pedidoProdutoService = pedidoProdutoService;
 		this.clienteService = clienteService;
 	}
-	
-	//Retorna todos pedidos no DB
+
+	// Retorna todos pedidos no DB
 	@GetMapping(path = "api/pedidos")
 	@ResponseStatus(HttpStatus.OK)
 	public @NotNull Iterable<PedidoModel> list() {
 		return this.pedidoService.getAllPedidos();
 	}
-	
-	//Salva pedido baseado no ID do cliente e do produto passado
+
+	// Salva pedido baseado no ID do cliente e do produto passado
 	@PostMapping(path = "api/pedido/salva")
 	public ResponseEntity<PedidoModel> create(@RequestBody PedidoForm form) {
-		
-		
+
 		List<PedidoProdutoDTO> formDtos = form.getProdutoPedidos();
 		validaExistenciaDoProduto(formDtos);
 
 		PedidoModel pedido = new PedidoModel();
 		pedido = this.pedidoService.create(pedido);
-		
-		
-		
+
 		List<PedidoProdutoModel> pedidoProdutoModel = new ArrayList<>();
 		for (PedidoProdutoDTO dto : formDtos) {
-			
+
 			pedidoProdutoModel.add(pedidoProdutoService
 					.create(new PedidoProdutoModel(produtoService.getProduto(dto.getProduto().getId()), pedido,
 							dto.getQuantidade(), clienteService.getCliente(dto.getCliente().getId()))));
@@ -87,7 +86,7 @@ public class PedidoController {
 
 		return new ResponseEntity<>(pedido, headers, HttpStatus.CREATED);
 	}
-	
+
 	private void validaExistenciaDoProduto(List<PedidoProdutoDTO> produtoPedidos) {
 
 		List<PedidoProdutoDTO> list = produtoPedidos.stream()
@@ -99,8 +98,7 @@ public class PedidoController {
 		}
 	}
 
-	
-	//método form para recebimento dos dados pels requisição
+	// método form para recebimento dos dados pels requisição
 	public static class PedidoForm {
 
 		private List<PedidoProdutoDTO> produtoPedidos;

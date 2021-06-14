@@ -1,6 +1,7 @@
 package br.com.talthur.developerjr.service;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,13 @@ public class PedidoServiceImpl implements PedidoService {
 		this.pedidoRepository.save(pedido);
 	}
 
+	@Override
+	public void delete(@NotNull(message = "The order cannot be null.") @Valid PedidoModel pedido) {
+		this.pedidoRepository.delete(pedido);
+		
+	}
+
+	
 }
+	
+	
